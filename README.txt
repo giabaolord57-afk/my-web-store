@@ -26,3 +26,10 @@ Gói hiệu ứng neon gaming bổ sung:
 - Thanh tiến trình cuộn ở mép trên.
 - Nút hỗ trợ Zalo nổi ở góc trái dưới.
 - Viền neon/kính mờ, hiệu ứng mở modal và tối ưu các nút nổi trên mobile.
+
+
+BẢN TRANG TRÍ TOÀN WEBSITE — NEON GAMING
+- Thêm assets/css/showcase.css làm lớp giao diện cuối cùng.
+- Nâng cấp header, hero, thẻ sản phẩm, thanh tìm kiếm, dịch vụ, cam kết, FAQ, liên hệ, modal, vòng quay may mắn và trình phát nhạc mini.
+- Có hiệu ứng xuất hiện khi cuộn, ánh sáng nhẹ theo con trỏ trên máy tính, nút lên đầu trang và tối ưu responsive.
+- Giữ nguyên nội dung sản phẩm, danh sách nhạc và logic quay hiện có. Các file MP3 vẫn cần đặt đúng đường dẫn như trong HTML.

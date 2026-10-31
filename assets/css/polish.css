@@ -326,3 +326,7 @@ header, .header, nav {
 @media (prefers-reduced-motion: reduce) {
   .loader-orbit, .loader-track i, .support-pulse { animation: none !important; }
 }
+
+/* Music replaces the former floating shop-support button. */
+.music-float { left: 16px !important; right: auto !important; bottom: 17px !important; }
+@media (max-width:560px) { .music-float { left: 9px !important; right: auto !important; bottom: 10px !important; } }

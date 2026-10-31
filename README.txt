@@ -33,3 +33,5 @@ BẢN TRANG TRÍ TOÀN WEBSITE — NEON GAMING
 - Nâng cấp header, hero, thẻ sản phẩm, thanh tìm kiếm, dịch vụ, cam kết, FAQ, liên hệ, modal, vòng quay may mắn và trình phát nhạc mini.
 - Có hiệu ứng xuất hiện khi cuộn, ánh sáng nhẹ theo con trỏ trên máy tính, nút lên đầu trang và tối ưu responsive.
 - Giữ nguyên nội dung sản phẩm, danh sách nhạc và logic quay hiện có. Các file MP3 vẫn cần đặt đúng đường dẫn như trong HTML.
+
+Support 24/7 chatbot: assets/css/chatbot.css, assets/js/chatbot.js. Câu hỏi/trả lời được xây dựng từ nội dung index.html. Bot chạy theo từ khóa trên trình duyệt, không phải AI trực tuyến.

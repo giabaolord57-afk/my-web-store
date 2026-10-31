@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="assets/css/polish.css">
 <link rel="stylesheet" href="assets/css/showcase.css">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link rel="stylesheet" href="assets/css/chatbot.css">
 </head>
 <body>
 <div id="pageLoader" class="page-loader" aria-label="Đang tải website" role="status">
@@ -82,7 +84,7 @@
 
 <div class="modal hide" id="productModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="modal-box product-modal-box"><button class="close" type="button" onclick="closeProductModal()" aria-label="Đóng">✕</button><div class="detail-layout"><img id="detailImage" alt="Ảnh sản phẩm" src=""><div><span class="tag" id="detailTag">SẢN PHẨM</span><h2 id="detailTitle">Chi tiết sản phẩm</h2><p id="detailDescription" class="detail-description"></p><div class="detail-price" id="detailPrice"></div><ul class="detail-points"><li>Thông tin tương thích cần xác nhận với shop trước khi mua.</li><li>HSD và hỗ trợ áp dụng theo chính sách shop.</li><li>Không gửi mật khẩu hoặc thông tin tài khoản nhạy cảm.</li></ul><div class="detail-actions"><button class="btn primary" id="copyInquiry" type="button">📋 Sao chép nội dung hỏi mua</button><a class="btn" href="https://zalo.me/0984840729" target="_blank" rel="noopener">💬 Liên hệ shop</a><button class="btn" id="shareProduct" type="button">↗ Chia sẻ</button></div></div></div></div></div>
 <button id="backTop" type="button" aria-label="Lên đầu trang" title="Lên đầu trang">↑</button><div id="toast" class="toast" role="status" aria-live="polite"></div>
-<a class="support-float" href="https://zalo.me/0984840729" target="_blank" rel="noopener" aria-label="Liên hệ hỗ trợ qua Zalo" title="Liên hệ hỗ trợ qua Zalo"><span class="support-pulse"></span><span class="support-icon">✦</span><span class="support-copy"><b>Hỗ trợ</b><small>Chat với shop</small></span></a>
+
 <footer><div class="wrap">© 2026 NgxbaoIos Store • Tối Ưu-AimLock-Hỗ Trợ • HSD vĩnh viễn theo chính sách shop.</div></footer>
 
 <div class="modal" id="welcome"><div class="modal-box"><button class="close" onclick="closeWelcome()">✕</button><h2>⚡ Chào mừng đến NgxbaoIos Store</h2><p style="color:#aeb8c8">Cam kết & chính sách được shop công bố:</p><ul><li>Cam kết TD 100% và bảo hành trọn đời.</li><li>Antiban 100% theo chính sách shop.</li><li>Nếu ban acc hoàn X2 giá trị acc theo chính sách.</li><li>Nếu không TD hoàn tiền và hỗ trợ đến khi TD.</li><li>Tất cả file đều có HSD vĩnh viễn.</li></ul><button class="btn primary" style="color:#fff!important;-webkit-text-fill-color:#fff" onclick="closeWelcome()">Đã hiểu</button></div></div>
@@ -349,4 +351,30 @@ miniAudio.addEventListener('play', () => {
 })();
 
 </script>
+<!-- Requires Bootstrap Icons stylesheet -->
+  <!-- ===== CHATBOT WIDGET ===== -->
+  <button id="chatFab" class="chat-fab" aria-label="Chat hỗ trợ">
+    <i class="bi bi-chat-dots-fill"></i>
+    <span class="chat-fab-badge">1</span>
+  </button>
+
+  <div id="chatWidget" class="chat-widget">
+    <div class="cw-header">
+      <div class="cw-avatar"><i class="bi bi-robot"></i></div>
+      <div class="cw-meta">
+        <div class="cw-name">Support 24/7 <i class="bi bi-patch-check-fill"></i></div>
+        <div class="cw-status">● Đang hoạt động</div>
+      </div>
+      <button class="cw-close" id="chatClose"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="cw-body" id="cwBody"></div>
+    <div class="cw-quick" id="cwQuick"></div>
+    <div class="cw-input-row">
+      <textarea class="cw-input" id="cwInput" placeholder="Nhập câu hỏi..." rows="1"></textarea>
+      <button class="cw-send" id="cwSend"><i class="bi bi-send-fill"></i></button>
+    </div>
+  </div>
+
+
+<script src="assets/js/chatbot.js" defer></script>
 </body></html>

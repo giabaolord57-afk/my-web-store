@@ -163,24 +163,65 @@ function initChatbot() {
 
   let started = false;
 
-  const noAccent = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
-
+  // Bộ hiểu câu hỏi chạy hoàn toàn trong trình duyệt, không gọi API.
+  const noAccent = s => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d')
+    .replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+  const stop = new Set('cho minh toi em ban shop oi a ah nha nhe la co khong duoc voi ve cua cai nay kia thi the nao bao nhieu xin hoi tu van giup muon can'.split(' '));
+  const tokens = s => noAccent(s).split(' ').filter(w => w.length > 1 && !stop.has(w));
+  const productIds = [0,1,2,3,4,5,6,7,8];
+  let lastProduct = null;
+  function distance(a,b) {
+    if (Math.abs(a.length-b.length)>2) return 3;
+    const v=Array.from({length:b.length+1},(_,i)=>i);
+    for(let i=1;i<=a.length;i++) { let prev=v[0];v[0]=i;
+      for(let j=1;j<=b.length;j++){const tmp=v[j];v[j]=Math.min(v[j]+1,v[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=tmp;}
+    } return v[b.length];
+  }
+  const aliases = [
+    ['techlock x','tech lock'],['hyperlock','hyper lock'],['onehead','one head'],
+    ['aimlock ai','aim lock ai'],['speedlock ios v1','speedlock v1','speed lock v1'],
+    ['speedlock ios v2','speedlock v2','speed lock v2'],['speedlock ios v3','speedlock v3','speed lock v3'],
+    ['proaim v1','pro aim v1'],['proaim v2','pro aim v2']
+  ];
+  function identify(q) {
+    let found=[];
+    aliases.forEach((names,i)=>{if(names.some(n=>q.includes(n)))found.push(i);});
+    if (!found.length) {
+      const words=tokens(q);
+      aliases.forEach((names,i)=>{if(names.some(n=>n.split(' ').every(w=>words.some(x=>x===w || (w.length>=5 && distance(w,x)<=1)))))found.push(i);});
+    }
+    return found;
+  }
   function findAnswer(text) {
-    const q = noAccent(text).trim();
-    let best = null, scoreBest = 0;
-    BOT_KNOWLEDGE.forEach(item => {
-      let score = 0;
-      item.keywords.forEach(kw => {
-        const k = noAccent(kw);
-        if (q.includes(k)) score = Math.max(score, 20 + k.length * 3);
-        else if (k.split(/\s+/).length > 1) {
-          const hits = k.split(/\s+/).filter(w => w.length > 2 && q.includes(w)).length;
-          if (hits >= 2) score = Math.max(score, hits * 3);
+    const q=noAccent(text), words=tokens(text);
+    if (!q) return BOT_FALLBACK;
+    if (/^(hi|hello|helo|chao|xin chao|alo|ad oi|shop oi)$/.test(q)) return 'Chào bạn 👋 Mình là **Support 24/7**. Bạn muốn xem giá sản phẩm, tư vấn gói, cách mua hay liên hệ admin?';
+    if (/^(cam on|thanks|thank you|ok|oke|oki)$/.test(q)) return 'Rất vui được hỗ trợ bạn! Nếu còn câu hỏi về sản phẩm hoặc cách mua, cứ nhắn mình nhé 😊';
+    const found=identify(q);
+    const isCompare=/so sanh|khac nhau|hay hon|tot hon|nen chon|voi/.test(q);
+    if(found.length>=2 && isCompare) {
+      lastProduct=found[found.length-1];
+      return found.slice(0,3).map(i=>BOT_KNOWLEDGE[i].answer).join('\n\n---\n\n')+'\n\nBạn cho mình biết dòng máy và ngân sách để admin tư vấn chính xác hơn nhé.';
+    }
+    if(found.length) {lastProduct=found[0];return BOT_KNOWLEDGE[found[0]].answer;}
+    if(lastProduct!==null && /^(gia|bao nhieu|may tien|co gi|chi tiet|ban nay|goi nay|mua sao|tu van them|noi them|co tot khong|dung cho may nao)/.test(q))
+      return BOT_KNOWLEDGE[lastProduct].answer;
+    let best=null, scoreBest=0;
+    BOT_KNOWLEDGE.forEach((item,i)=>{
+      let score=0;
+      item.keywords.forEach(kw=>{
+        const k=noAccent(kw), kt=tokens(k);
+        if(q===k) score=Math.max(score,100+k.length);
+        else if(q.includes(k) && k.length>=4) score=Math.max(score,30+k.length);
+        else if(kt.length){
+          const matched=kt.filter(w=>words.some(x=>x===w || (w.length>=5 && distance(w,x)<=1))).length;
+          const ratio=matched/kt.length;
+          if(matched && ratio>=0.65) score=Math.max(score,ratio*15+matched*3);
         }
       });
-      if (score > scoreBest) { best = item; scoreBest = score; }
+      if(score>scoreBest){best=item;scoreBest=score;}
     });
-    return best && scoreBest >= 6 ? best.answer : BOT_FALLBACK;
+    return best && scoreBest>=9 ? best.answer : BOT_FALLBACK;
   }
   const GAME_ICONS = {};
 

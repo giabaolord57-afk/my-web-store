@@ -63,7 +63,7 @@
 <div class="box"><b>✓ Hoàn tiền & hỗ trợ</b><p>Nếu không TD hoàn tiền và hỗ trợ đến khi TD theo chính sách.</p></div>
 </div></div></section>
 
-<section><div class="wrap"><div class="card service" style="text-align:center"><h2>🎁 Mua từ 150K — nhận 1 lượt vòng quay</h2><p>Phần thưởng gồm: File Make riêng • App Make riêng • Key App • Tiền mặt 30K–100K.</p><button class="btn primary" style="color:#fff;-webkit-text-fill-color:#fff" onclick="openWheel()">Mở vòng quay demo</button><div class="note" style="margin-top:12px">Vòng quay trên website là giao diện demo; việc xác nhận lượt/quà cần được shop xử lý.</div></div></div></section>
+<section><div class="wrap"><div class="card service" style="text-align:center"><h2>🎁 Mua từ 150K — nhận 1 lượt vòng quay</h2><p>Phần thưởng gồm: File Make riêng • App Make riêng • Key App • Tiền mặt 30K–100K.</p><button class="btn primary" style="color:#fff;-webkit-text-fill-color:#fff" onclick="openWheel()" style="display:flex;align-items:center;justify-content:center;margin:18px auto 0;width:max-content;max-width:100%;color:#fff;-webkit-text-fill-color:#fff">Mở vòng quay demo</button><div class="note" style="margin-top:12px">Vòng quay trên website là giao diện demo; việc xác nhận lượt/quà cần được shop xử lý.</div></div></div></section>
 
 <section id="faq"><div class="wrap"><div class="section-head"><div><h2>❓ Câu hỏi thường gặp</h2><p>Thông tin nhanh trước khi đặt hàng.</p></div></div><div class="faq-list">
 <details class="faq-item"><summary>Làm sao để mua sản phẩm?</summary><p>Bấm “Mua / Tư vấn” hoặc liên hệ Zalo, gửi tên sản phẩm và gói muốn mua. Shop sẽ xác nhận thông tin trước khi thanh toán.</p></details>
@@ -300,33 +300,6 @@ miniAudio.addEventListener('play', () => {
 // Whole-site visual refinement: section reveals, subtle pointer glow, and reliable top button.
 (() => {
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = [
-    'header.hero .hero-grid > div',
-    'section .section-head',
-    '#productGrid > .card',
-    '#dichvu .card',
-    '#camket .promise > .box',
-    '.faq-list .faq-item',
-    '.contact .contact-card',
-    'footer .wrap'
-  ];
-  if (!reduceMotion && 'IntersectionObserver' in window) {
-    const targets = document.querySelectorAll(revealTargets.join(','));
-    targets.forEach((el, index) => {
-      el.classList.add('site-reveal');
-      el.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 65}ms`);
-    });
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
-    targets.forEach((el) => observer.observe(el));
-  }
-
   // Tiny ambient glow follows the pointer on desktop only.
   if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
     let queued = false;

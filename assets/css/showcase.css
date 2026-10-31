@@ -358,7 +358,7 @@ footer { border-color: rgba(155,92,255,.15); }
 }
 
 /* Section reveal animation, activated progressively by JavaScript */
-.site-reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s var(--show-ease),transform .65s var(--show-ease); transition-delay: var(--reveal-delay,0ms); }
+.site-reveal { opacity: 1; transform: none; transition: none; }
 .site-reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 /* Responsive layout polish */
